@@ -1,6 +1,6 @@
-name: Your Name
-studentNumber: z1234567
-officialEmail: noIdea@unsw.edu.au
+name: Jack Wang
+studentNumber: z5190688
+officialEmail: z5190688@unsw.edu.au
 contactEmail:
-  firstBit: firstName.Lastname  # this avoids spam, the @ is implied
-  otherBit: whereIwork.com
+  firstBit: zhaohanwang  # this avoids spam, the @ is implied
+  otherBit: live.com
