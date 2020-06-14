@@ -253,6 +253,7 @@ def loops_7():
 
         column.append(row)
     
+    print(column)
     return column
 
 def lp(some_kind_of_list, exercise_name):
