@@ -239,22 +239,23 @@ def loops_7():
     lots of diagrams!
     """
 
-    column = []
+    a = []
     for i in range(5):
         start = 4-i
         end = 4+i
-        row = []
-
+        
+        b = []
         for j in range(9):
             if j >= start and j <= end:
-                row.append("*")
+                b.append("*")
             else:
-                row.append(" ")
+                b.append(" ")
 
-        column.append(row)
+        a.append(b)
     
-    print(column)
-    return column
+    print(a)
+    return a
+
 
 def lp(some_kind_of_list, exercise_name):
     """Help to see what's going on.
