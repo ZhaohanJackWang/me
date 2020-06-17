@@ -48,7 +48,13 @@ def stubborn_asker(low, high):
 
     Look up the docs for input
     """
-    return None
+    x = int(input('type a number:'))
+    while low < x < high:
+        print("OK")
+    else:
+        print("try a different number")
+        x = int(input('type a number:'))
+    return x
 
 
 def not_number_rejector(message):
