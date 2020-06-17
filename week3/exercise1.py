@@ -83,7 +83,17 @@ def super_asker(low, high):
     Try to call at least one of the other functions to minimise the
     amount of code.
     """
-    return None
+    x = input("type an integer")
+    while False:
+        if x is int:
+            if x >= high or x <= low:
+                print("try a different number")
+            if low < x < high:
+                print("okay")
+        else:
+            print("type in a number")
+        x = input("type an integer")
+    return x
 
 
 if __name__ == "__main__":
