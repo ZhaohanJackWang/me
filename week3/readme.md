@@ -5,6 +5,8 @@ while: a loop that will stop until condition is false
 if: a statement that checks true or false for only once 
     e.g. if (x>y) --> this will only happen once
 
+return: ends the execution of the function call and "returns" the result
+
 print(): print a text
     e.g. print("hello world!")
 input(): print a text and allows the user to input something 

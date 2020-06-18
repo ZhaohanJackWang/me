@@ -5,6 +5,13 @@ Steps on the way to making your own guessing game.
 
 import random
 
+def check_number(number):
+  while True:
+    try:
+      number = int(number)
+      return number
+    except Exception:
+      number = input("it is not number plz enter again: ")
 
 def advancedGuessingGame():
     """Play a guessing game with a user.
@@ -25,6 +32,14 @@ def advancedGuessingGame():
     Remember to think modular. Try to keep your functions small and single
     purpose if you can!
     """
+
+    lowBound = input("Enter an upper bound: ")
+    lowBound = check_number(lowBound)
+
+    upperBound = input("Enter an upper bound: ")
+    upperBound = check_number(upperBound)
+    print(upperBound)
+
 
     return "You got it!"
     # the tests are looking for the exact string "You got it!". Don't modify that!
