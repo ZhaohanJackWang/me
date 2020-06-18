@@ -13,6 +13,20 @@ def check_number(number):
     except Exception:
       number = input("it is not number plz enter again: ")
 
+def check_upper(upper, low):
+
+  upper = check_number(upper)
+
+  print(type(upper))
+
+
+  while True:
+    if upper > low:
+      return upper
+    else:
+      upper = check_number(input("upper should bigger than low, plz enter again: "))
+
+
 def advancedGuessingGame():
     """Play a guessing game with a user.
 
@@ -33,15 +47,33 @@ def advancedGuessingGame():
     purpose if you can!
     """
 
-    lowBound = input("Enter an upper bound: ")
+    lowBound = input("Enter an low bound: ")
     lowBound = check_number(lowBound)
 
     upperBound = input("Enter an upper bound: ")
-    upperBound = check_number(upperBound)
-    print(upperBound)
+    upperBound = check_upper(upperBound, lowBound)
 
 
+    actualNumber = random.randint(lowBound, upperBound)
+
+    guessed = -1
+
+    while guessed != actualNumber:
+        guessedNumber = input("Guess a number: ")
+        guessedNumber = check_number(guessedNumber)
+        print("You guessed {},".format(guessedNumber),)
+        if guessedNumber == actualNumber:
+            print("You got it!! It was {}".format(actualNumber))
+            guessed = actualNumber 
+        elif guessedNumber > upperBound or guessedNumber < lowBound:
+            print("outside of bounds")
+        elif guessedNumber < actualNumber:
+            print("Too small, try again :'(")
+        else:
+            print("Too big, try again :'(")
     return "You got it!"
+
+
     # the tests are looking for the exact string "You got it!". Don't modify that!
 
 
