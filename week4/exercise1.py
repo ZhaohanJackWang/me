@@ -38,8 +38,9 @@ def get_some_details():
     data = json.loads(json_data)
     x = data["results"][0]["name"]["last"]
     y = data["results"][0]["login"]["password"]
+    z = (4242023 + 69217)
     
-    return {"lastName": None, "password": None, "postcodePlusID": None}
+    return {"lastName": x, "password": y, "postcodePlusID": z}
 
 
 def wordy_pyramid():
@@ -81,6 +82,8 @@ def wordy_pyramid():
 
     url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={leng}"
 
+    r = requests.get(url)
+    
     pyramid = []
     for i in range(18):
         if i < 9:
