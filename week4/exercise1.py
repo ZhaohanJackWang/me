@@ -109,41 +109,49 @@ def pokedex(low=1, high=5):
          variable and then future access will be easier.
     """
     template = "https://pokeapi.co/api/v2/pokemon/{id}"
-    the_json = None
 
-    height = -1
-    weight = -1
-    name = ""
-
-    while low < high:
-        url = template.format(id=low)
+    tallest = 0
+    pokemon = []
+    for i in range(low, high):
+        url = template.format(id=i)
         r = requests.get(url)
         if r.status_code == 200:
             the_json = json.loads(r.text)
+            pokemon.append(the_json)
 
-        if the_json != None:
-            if the_json["height"] > height:
-                height = the_json["height"] 
-                weight = the_json["weight"]
-                name = the_json["forms"][0]["name"]
-        low += 1
+    for p in pokemon:
+        current = p["height"]
+        if current > tallest:
+            tallest = current
+            height = p["height"] 
+            weight = p["weight"]
+            name = p["forms"][0]["name"]
 
     return {"name": name, "weight": weight, "height": height}
 
 
 #    template = "https://pokeapi.co/api/v2/pokemon/{id}"
+#    the_json = None
 
-#    list = range(low, high)
-#    for i in list:
-#        url = template.format(id = i)
+#    height = -1
+#    weight = -1
+#    name = ""
+
+#    while low < high:
+#        url = template.format(id=low)
 #        r = requests.get(url)
-#        if r.status_code is 200:
+#        if r.status_code == 200:
 #            the_json = json.loads(r.text)
-#            x = the_json["forms"][0]["name"]
-#            y = the_json["weight"]
-#            z = the_json["height"]
+#
+#        if the_json != None:
+#            if the_json["height"] > height:
+#                height = the_json["height"] 
+#                weight = the_json["weight"]
+#                name = the_json["forms"][0]["name"]
+#        low += 1
+#
+#    return {"name": name, "weight": weight, "height": height}
 
-#    return {"name": x, "weight": y, "height": z}
 
 
 def diarist():
@@ -160,7 +168,17 @@ def diarist():
          the test will have nothing to look at.
     TIP: this might come in handy if you need to hack a 3d print file in the future.
     """
-    pass
+    readfile = LOCAL + "/Trispokedovetiles(laser).gcode"
+    laser = open(readfile, "r")
+    numcount = 0
+    for i in laser:
+        if "M10 P1" in i:
+            numcount += 1
+    
+    writefile = LOCAL + "/lasers.pew"
+    laser = open(writefile, "w")
+    laser.write(str(numcount))
+    laser.close()
 
 
 if __name__ == "__main__":
