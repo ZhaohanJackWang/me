@@ -49,7 +49,12 @@ def do_bunch_of_bad_things():
 # return a list of countdown messages, much like in the bad function above.
 # It should say something different in the last message.
 def countdown(message, start, stop, completion_message):
-    pass
+    countlist = []
+
+    for i in range(start-stop+1, stop-stop, -1):
+        print(message,str(i))
+    print(completion_message)
+    return countlist
 
 
 # TRIANGLES
@@ -62,32 +67,41 @@ def countdown(message, start, stop, completion_message):
 # The stub functions are made for you, and each one is tested, so this should
 # hand hold quite nicely.
 def calculate_hypotenuse(base, height):
-    pass
+    hypotenuse = (base**2 + height**2)**(1/2)
+    return(hypotenuse)
 
 
 def calculate_area(base, height):
-    pass
+    area = (base*height)/2
+    return(area)
 
 
 def calculate_perimeter(base, height):
-    pass
+    perimeter = (base*base + height*height)**(1/2) + base + height
+    return(perimeter)
 
 
 def calculate_aspect(base, height):
-    pass
+    if height > base:
+        return "tall"
+    elif base > height:
+        return "wide"
+    else:
+        return "equal"
+    
 
 
 # Make sure you reuse the functions you've already got
 # Don't reinvent the wheel
 def get_triangle_facts(base, height, units="mm"):
     return {
-        "area": None,
-        "perimeter": None,
-        "height": None,
-        "base": None,
-        "hypotenuse": None,
-        "aspect": None,
-        "units": None,
+        "area": calculate_area(base, height),
+        "perimeter": calculate_perimeter(base, height),
+        "height": height,
+        "base": base,
+        "hypotenuse": calculate_hypotenuse(base, height),
+        "aspect": calculate_aspect(base, height),
+        "units": units,
     }
 
 
@@ -150,7 +164,7 @@ def triangle_master(base, height, return_diagram=False, return_dictionary=False)
         return None
     else:
         print("You're an odd one, you don't want anything!")
-
+    
 
 def wordy_pyramid(api_key):
     import requests
