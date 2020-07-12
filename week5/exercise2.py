@@ -91,6 +91,7 @@ def abba(source="abba", guard=3):
     aobaobbbabbaoaaobbbaoaaobaobaobbba
                 and so on...
     """
+    
     def apply_rules(letter, guard):
         """Control the substitution.
 

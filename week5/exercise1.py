@@ -20,6 +20,7 @@ you'll need to figure out for yourself what to do.
 # much better job of what it's trying to do. Once you've has a little look,
 # move on, and eventually delete this function. (And this comment!)
 def do_bunch_of_bad_things():
+    
     print("Getting ready to start in 9")
     print("Getting ready to start in 8")
     print("Getting ready to start in 7")
@@ -146,22 +147,33 @@ def tell_me_about_this_right_triangle(facts_dictionary):
                   |____⋱
                   {base}"""
 
-    pattern = (
+    pattern = ( 
         "This triangle is {area}{units}²\n"
         "It has a perimeter of {perimeter}{units}\n"
         "This is a {aspect} triangle.\n"
     )
-
+    area = calculate_area
+    perimeter = calculate_perimeter
+    aspect = calculate_aspect
+    if facts_dictionary["aspect"] == "tall":
+        diagram = tall.format(**facts_dictionary)
+    elif facts_dictionary["aspect"] == "wide":
+        diagram = wide.format(**facts_dictionary)
+    else:
+        diagram = equal.format(**facts_dictionary)
     facts = pattern.format(**facts_dictionary)
+    return( diagram + "\n" + facts)
 
 
-def triangle_master(base, height, return_diagram=False, return_dictionary=False):
+def triangle_master(base, height, return_diagram = False, return_dictionary = False):
+    f = get_triangle_facts(base, height)
+    d = tell_me_about_this_right_triangle(f)
     if return_diagram and return_dictionary:
-        return None
+        return {"diagram": d, "facts": f}
     elif return_diagram:
-        return None
+        return d
     elif return_dictionary:
-        return None
+        return f
     else:
         print("You're an odd one, you don't want anything!")
     
@@ -169,39 +181,54 @@ def triangle_master(base, height, return_diagram=False, return_dictionary=False)
 def wordy_pyramid(api_key):
     import requests
 
-    baseURL = (
-        "http://api.wordnik.com/v4/words.json/randomWords?"
-        "api_key={api_key}"
-        "&minLength={length}"
-        "&maxLength={length}"
-        "&limit=1"
-    )
+    baseURL = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={length}"
+    
+    lengths = [up for up in range(3,21,2)] + [down for down in range(20,3,-2)]
     pyramid_list = []
-    for i in range(3, 21, 2):
-        url = baseURL.format(api_key="", length=i)
-        r = requests.get(url)
-        if r.status_code is 200:
-            message = r.json()[0]["word"]
-            pyramid_list.append(message)
+
+    for length in lengths:
+        r = requests.get(baseURL.format(length=length))
+        if r:
+            pyramid_list.append(r.text)
         else:
-            print("failed a request", r.status_code, i)
-    for i in range(20, 3, -2):
-        url = baseURL.format(api_key="", length=i)
-        r = requests.get(url)
-        if r.status_code is 200:
-            message = r.json()[0]["word"]
-            pyramid_list.append(message)
-        else:
-            print("failed a request", r.status_code, i)
+            print("failed a request", r.status_code, length)
+
     return pyramid_list
 
 
 def get_a_word_of_length_n(length):
-    pass
+    import requests
+
+    url = (
+        "http://api.wordnik.com/v4/words.json/randomWords?"
+        "api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
+        "&minLength={length}"
+        "&maxLength={length}"
+        "&limit=1".format(length=length)
+    )
+    r = requests.get(url)
+    try:
+        length = int(length)
+    except ValueError:
+        return None
+    
+    if 3 <= length <= 20:
+        if r.status_code is 200:
+            message = r.json()[0]["word"]
+            return message
 
 
 def list_of_words_with_lengths(list_of_lengths):
-    pass
+    import requests
+
+    url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={length}"
+    wordList = []
+    for i in range(0,len(list_of_lengths)-1):
+        length = list_of_lengths[i]
+        r = requests.get(url.format(length=length))
+        wordList.append(r.text)
+    print(wordList)
+    return wordList
 
 
 if __name__ == "__main__":
