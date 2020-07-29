@@ -109,7 +109,14 @@ def abba(source="abba", guard=3):
             return letter
 
     # write the rest of the function here
-    pass
+        parts = list(source)
+        result = list(map(apply_rules, parts))
+        new_string = "".join(result)
+        guard -= 1
+        if guard > 0:
+            return abba(new_string, guard)
+        else:
+            return new_string
 
 
 def koch(t, order, size):
