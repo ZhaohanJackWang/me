@@ -28,8 +28,8 @@ def is_it_5(some_number) -> bool:
     """Returns True if the argument passed is 5, otherwise returns False."""
     if some_number == 5:
         return True
-     if some_number != 5:
-         return False
+    if some_number != 5:
+        return False
 
 
 def take_five(some_number) -> int:
