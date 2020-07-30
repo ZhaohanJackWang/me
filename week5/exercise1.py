@@ -67,17 +67,17 @@ def countdown(message, start, stop, completion_message):
 # hand hold quite nicely.
 def calculate_hypotenuse(base, height):
     hypotenuse = (base**2 + height**2)**(1/2)
-    return(hypotenuse)
+    return hypotenuse
 
 
 def calculate_area(base, height):
     area = (base*height)/2
-    return(area)
+    return area
 
 
 def calculate_perimeter(base, height):
     perimeter = (base*base + height*height)**(1/2) + base + height
-    return(perimeter)
+    return perimeter
 
 
 def calculate_aspect(base, height):
