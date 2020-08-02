@@ -50,11 +50,10 @@ def do_bunch_of_bad_things():
 # return a list of countdown messages, much like in the bad function above.
 # It should say something different in the last message.
 def countdown(message, start, stop, completion_message):
-    countlist = []
-    for i in range(start-stop+1, stop-stop, -1):
-        print(message,str(i))
+    while start >= stop:
+        print(message + " " + str(start))
+        start = start - 1
     print(completion_message)
-    return countlist
 
 
 
@@ -178,22 +177,19 @@ def triangle_master(base, height, return_diagram = False, return_dictionary = Fa
         print("You're an odd one, you don't want anything!")
     
 
-def wordy_pyramid(api_key):
+def wordy_pyramid():
     import requests
-    url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={len}"
+    import json
+    pyramid_list = []
+    iterate_list = []
+    for i in range(3, 21, 2):
+        iterate_list.append(i)
+    for i in range(20, 2, -2):
+        iterate_list.append(i)
+    pyramid_list.extend(list_of_words_with_lengths(iterate_list))
 
-    wordy = []
-    for i in range(start,stop,step):
-        fullurl=url.format(len=i)
-        pull = requests.get(fullurl)   
-        if pull.status_code is 200:         
-            randword = pull.content  
-            if randword is None: 
-                pass
-            else:
-                randword = str(randword)
-                wordy.append(randword[2:-1])
-    return wordy
+    return pyramid_list
+
 
 
 def get_a_word_of_length_n(length):
