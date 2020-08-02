@@ -50,10 +50,12 @@ def do_bunch_of_bad_things():
 # return a list of countdown messages, much like in the bad function above.
 # It should say something different in the last message.
 def countdown(message, start, stop, completion_message):
-    while start >= stop:
-        print(message + " " + str(start))
-        start -= 1
+    countlist = []
+    for i in range(start-stop+1, stop-stop, -1):
+        print(message,str(i))
     print(completion_message)
+    return countlist
+
 
 
 # TRIANGLES
@@ -178,55 +180,53 @@ def triangle_master(base, height, return_diagram = False, return_dictionary = Fa
 
 def wordy_pyramid(api_key):
     import requests
+    url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={len}"
 
-    baseURL = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={length}"
-    
-    lengths = [up for up in range(3,21,2)] + [down for down in range(20,3,-2)]
-    pyramid_list = []
-
-    for length in lengths:
-        r = requests.get(baseURL.format(length=length))
-        if r:
-            pyramid_list.append(r.text)
-        else:
-            print("failed a request", r.status_code, length)
-
-    return pyramid_list
+    wordy = []
+    for i in range(start,stop,step):
+        fullurl=url.format(len=i)
+        pull = requests.get(fullurl)   
+        if pull.status_code is 200:         
+            randword = pull.content  
+            if randword is None: 
+                pass
+            else:
+                randword = str(randword)
+                wordy.append(randword[2:-1])
+    return wordy
 
 
 def get_a_word_of_length_n(length):
     import requests
-
-    url = (
-        "http://api.wordnik.com/v4/words.json/randomWords?"
-        "api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
-        "&minLength={length}"
-        "&maxLength={length}"
-        "&limit=1".format(length=length)
-    )
-    r = requests.get(url)
-    try:
-        length = int(length)
-    except ValueError:
+    url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={leng}"
+    if type(length) == int and length >= 3:
+        fullurl=url.format(leng=length)
+        pull = requests.get(fullurl)   
+        if pull.status_code is 200:         
+            wordn = pull.content  
+            wordn = str(wordn)
+            outputword = wordn[2:len(wordn)-1]
+                #    this retrives the word from the url
+        return outputword
+    else:
         return None
-    
-    if 3 <= length <= 20:
-        if r.status_code is 200:
-            message = r.json()[0]["word"]
-            return message
 
 
 def list_of_words_with_lengths(list_of_lengths):
     import requests
-
-    url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={length}"
-    wordList = []
-    for i in range(0,len(list_of_lengths)-1):
-        length = list_of_lengths[i]
-        r = requests.get(url.format(length=length))
-        wordList.append(r.text)
-    print(wordList)
-    return wordList
+    listwerds =[]
+    url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={leng}"
+    for i in list_of_lengths:
+        # if type(i) == int and length >= 3:
+        fullurl=url.format(leng=i)
+        pull = requests.get(fullurl)   
+        if pull.status_code is 200:         
+            wordn = pull.content  
+            wordn = str(wordn)
+            outputword = wordn[2:-1]
+                #    this retrives the word from the url
+        listwerds.append(outputword) 
+    return listwerds
 
 
 if __name__ == "__main__":
