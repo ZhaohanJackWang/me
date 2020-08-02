@@ -122,10 +122,10 @@ def abba(source="abba", guard=3):
 def koch(t, order, size):
     """Make turtle t draw a Koch fractal of 'order' and 'size'."""
     trace = ""
-    if order == 0:  # The base case is just a straight line
+    if order == 0:
         t.forward(size)
     else:
-        trace += koch(t, order - 1, size / 3)  # Go 1/3 of the way
+        trace += koch(t, order - 1, size / 3)
         t.left(60)
         trace += koch(t, order - 1, size / 3)
         t.right(120)
@@ -142,7 +142,7 @@ def draw_koch(drawing_method, steps_deep=4):
     https://docs.python.org/3/library/turtle.html
     """
     raphael = turtle.Turtle()
-    raphael.speed(100)
+    raphael.speed(1000)
     raphael.penup()
     raphael.goto(-300, 0)
     raphael.pendown()
@@ -160,10 +160,10 @@ def square_koch(t, order, size):
 
     """
     trace = ""
-    if order == 0:  # The base case is just a straight line
+    if order == 0:
         t.forward(size)
     else:
-        trace += square_koch(t, order - 1, size / 3)  # Go 1/3 of the way
+        trace += square_koch(t, order - 1, size / 3)
         t.left(90)
         trace += square_koch(t, order - 1, size / 3)
         t.right(90)
